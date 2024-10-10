@@ -12,7 +12,7 @@ const personDropArea = document.getElementById('personDropArea');
 
 // 背景画像用のドロップエリアの設定
 backgroundDropArea.addEventListener('dragover', (e) => {
-    e.preventDefault();
+    e.preventDefault();  // デフォルトのブラウザ動作を無効化
     backgroundDropArea.style.borderColor = '#000';
 });
 
@@ -21,7 +21,7 @@ backgroundDropArea.addEventListener('dragleave', () => {
 });
 
 backgroundDropArea.addEventListener('drop', async (e) => {
-    e.preventDefault();
+    e.preventDefault();  // デフォルトのブラウザ動作を無効化
     backgroundDropArea.style.borderColor = '#ccc';
     const file = e.dataTransfer.files[0];
     backgroundImage = await loadImageFromFile(file);
@@ -30,7 +30,7 @@ backgroundDropArea.addEventListener('drop', async (e) => {
 
 // 人物画像用のドロップエリアの設定
 personDropArea.addEventListener('dragover', (e) => {
-    e.preventDefault();
+    e.preventDefault();  // デフォルトのブラウザ動作を無効化
     personDropArea.style.borderColor = '#000';
 });
 
@@ -39,7 +39,7 @@ personDropArea.addEventListener('dragleave', () => {
 });
 
 personDropArea.addEventListener('drop', async (e) => {
-    e.preventDefault();
+    e.preventDefault();  // デフォルトのブラウザ動作を無効化
     personDropArea.style.borderColor = '#ccc';
     const file = e.dataTransfer.files[0];
     personImage = await loadImageFromFile(file);
