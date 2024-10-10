@@ -1,66 +1,55 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>画像合成サイト</title>
+    <title>Image Drop</title>
+    <!-- background-removal-js ライブラリをCDN経由で読み込み -->
+    <script src="https://unpkg.com/background-removal-js"></script>
+    
+    <!-- インラインスタイルセクション -->
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
             font-family: Arial, sans-serif;
-        }
-        .container {
-            position: relative;
-            width: 800px;
-            height: 600px;
-            border: 2px dashed #ccc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #f0f0f0;
-        }
-        #backgroundCanvas, #personCanvas {
-            position: absolute;
-        }
-        .drop-area {
-            position: relative;
-            width: 380px;
-            height: 580px;
-            border: 2px dashed #ccc;
-            margin: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             text-align: center;
+            margin-top: 50px;
         }
-        .drop-container {
-            display: flex;
-            flex-direction: column;
+
+        h1 {
+            color: #333;
+        }
+
+        #backgroundDropArea, #personDropArea {
+            border: 2px dashed #ccc;
+            width: 300px;
+            height: 200px;
+            text-align: center;
+            line-height: 200px;
+            margin: 20px auto;
+            color: #999;
+            font-size: 16px;
+        }
+
+        canvas {
+            border: 1px solid #ccc;
+            display: block;
+            margin: 0 auto 20px;
         }
     </style>
 </head>
 <body>
+    <h1>画像合成ツール</h1>
 
-<div class="container">
-    <canvas id="backgroundCanvas" width="800" height="600"></canvas>
-    <canvas id="personCanvas" width="800" height="600"></canvas>
-</div>
-
-<div class="drop-container">
-    <div class="drop-area" id="backgroundDropArea">
-        <p>背景画像をドロップ</p>
+    <div id="backgroundDropArea">
+        背景画像をここにドロップ
     </div>
-    <div class="drop-area" id="personDropArea">
-        <p>人物画像をドロップ</p>
+    <canvas id="backgroundCanvas" width="300" height="200"></canvas>
+
+    <div id="personDropArea">
+        人物画像をここにドロップ
     </div>
-</div>
+    <canvas id="personCanvas" width="300" height="200"></canvas>
 
-<script src="https://cdn.jsdelivr.net/npm/background-removal-js@latest"></script>
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
