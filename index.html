@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画像合成サイト</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+        }
+        #backgroundCanvas, #personCanvas {
+            position: absolute;
+        }
+        .drop-area {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <canvas id="backgroundCanvas" width="800" height="600"></canvas>
+    <canvas id="personCanvas" width="800" height="600"></canvas>
+    <div class="drop-area" id="dropArea">
+        <p>背景画像をドロップ</p>
+        <p>人物画像をドロップ</p>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/background-removal-js@latest"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
