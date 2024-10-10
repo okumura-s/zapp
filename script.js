@@ -7,34 +7,43 @@ const backgroundCtx = backgroundCanvas.getContext('2d');
 const personCanvas = document.getElementById('personCanvas');
 const personCtx = personCanvas.getContext('2d');
 
-const dropArea = document.getElementById('dropArea');
+const backgroundDropArea = document.getElementById('backgroundDropArea');
+const personDropArea = document.getElementById('personDropArea');
 
-dropArea.addEventListener('dragover', (e) => {
+// 背景画像用のドロップエリアの設定
+backgroundDropArea.addEventListener('dragover', (e) => {
     e.preventDefault();
-    dropArea.style.borderColor = '#000';
+    backgroundDropArea.style.borderColor = '#000';
 });
 
-dropArea.addEventListener('dragleave', () => {
-    dropArea.style.borderColor = '#ccc';
+backgroundDropArea.addEventListener('dragleave', () => {
+    backgroundDropArea.style.borderColor = '#ccc';
 });
 
-dropArea.addEventListener('drop', async (e) => {
+backgroundDropArea.addEventListener('drop', async (e) => {
     e.preventDefault();
-    const files = e.dataTransfer.files;
+    backgroundDropArea.style.borderColor = '#ccc';
+    const file = e.dataTransfer.files[0];
+    backgroundImage = await loadImageFromFile(file);
+    drawBackground();
+});
 
-    if (files.length > 0) {
-        const file = files[0];
-        const img = await loadImageFromFile(file);
+// 人物画像用のドロップエリアの設定
+personDropArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    personDropArea.style.borderColor = '#000';
+});
 
-        if (!backgroundImage) {
-            backgroundImage = img;
-            drawBackground();
-        } else {
-            personImage = img;
-            await removeBackground(personImage);
-        }
-    }
-    dropArea.style.borderColor = '#ccc';
+personDropArea.addEventListener('dragleave', () => {
+    personDropArea.style.borderColor = '#ccc';
+});
+
+personDropArea.addEventListener('drop', async (e) => {
+    e.preventDefault();
+    personDropArea.style.borderColor = '#ccc';
+    const file = e.dataTransfer.files[0];
+    personImage = await loadImageFromFile(file);
+    await removeBackground(personImage);
 });
 
 function loadImageFromFile(file) {
