@@ -41,9 +41,26 @@ personDropArea.addEventListener('dragleave', () => {
 personDropArea.addEventListener('drop', async (e) => {
     e.preventDefault();  // デフォルトのブラウザ動作を無効化
     personDropArea.style.borderColor = '#ccc';
+
+    console.log('人物画像がドロップされました');  // デバッグ用ログ
+
     const file = e.dataTransfer.files[0];
     personImage = await loadImageFromFile(file);
-    await removeBackground(personImage);
+
+    // 画像が正しく読み込まれたか確認する
+    if (personImage) {
+        console.log('人物画像が正しく読み込まれました:', personImage);
+    } else {
+        console.error('人物画像の読み込みに失敗しました');
+        return;
+    }
+
+    try {
+        await removeBackground(personImage);
+        console.log('背景除去が完了しました');
+    } catch (error) {
+        console.error('背景除去に失敗しました:', error);
+    }
 });
 
 function loadImageFromFile(file) {
@@ -53,6 +70,7 @@ function loadImageFromFile(file) {
         reader.onload = function (e) {
             img.src = e.target.result;
             img.onload = () => resolve(img);
+            img.onerror = () => reject('画像の読み込みに失敗しました');
         };
         reader.readAsDataURL(file);
     });
@@ -64,10 +82,14 @@ function drawBackground() {
 }
 
 async function removeBackground(image) {
-    const result = await BackgroundRemover.removeBackgroundFromImage(image);
-    personCtx.clearRect(0, 0, personCanvas.width, personCanvas.height);
-    personCtx.drawImage(result, 0, 0, personCanvas.width, personCanvas.height);
-    makeImageDraggable(result);
+    try {
+        const result = await BackgroundRemover.removeBackgroundFromImage(image);
+        personCtx.clearRect(0, 0, personCanvas.width, personCanvas.height);
+        personCtx.drawImage(result, 0, 0, personCanvas.width, personCanvas.height);
+        makeImageDraggable(result);
+    } catch (error) {
+        console.error('背景除去中にエラーが発生しました:', error);
+    }
 }
 
 function makeImageDraggable(image) {
